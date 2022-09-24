@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSIC</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <h1><i class="fa-solid fa-music" aria-hidden="true"></i> My Music Player<i class="fa-solid fa-music" aria-hidden="true"></i></h1>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">SHERSHAA</h2>
+            <h3 id="artist">Tanishk Bagchi,Asees Kaur,jubin Nautiyal</h3>
+            <div class="image_container">
+                <img src="images/raata lambiyan.jpg" alt="">
+            </div>
+            <audio src="songs/raata lambiyan.mp3" controls></audio>
+            <!-- controls -->
+
+            <div class="music_controls">
+                <i class="fas fa-circle-left main_button" id="prev" title="Previous"></i>
+                <i class="fas fa-circle-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-circle-right main_button" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music=document.querySelector("audio")
+        const play=document.getElementById("play")
+        const image=document.querySelector("img")
+        const title=document.getElementById("title")
+        const artist=document.getElementById("artist")
+        const prev=document.getElementById("prev")
+        const next=document.getElementById("next")
+
+        let songs=[{
+            name:"raata lambiyan",
+            artist:"Tanishk Bagchi,Asees Kaur,jubin Nautiyal",
+            title:"raata lambiyan "
+        },{
+            name:"ha tu hai",
+            artist:"PRITAM",
+            title:"ha tu hai"
+            
+        },{
+            name:"Daaru badnam",
+            artist:"Param Singh, Kamal Kahlon, Pratik Studio",
+            title:"Daaru badnam"
+        },{
+            name:"u and I",
+            artist:"KETTY PERRY",
+            title:"u and I"
+        },{
+            name:"hum nhi sudhrenge",
+            artist:"RAHAT FATEH ALI KHAN",
+            title:"hum nhi sudhrenge"
+
+        },{
+            name:"shammat",
+            artist:"Tara sutariya Ankit Tiwari",
+            title:"shammat"
+            
+        },{
+            name:"kheech meri photo",
+            artist:"Neeti Mohan Darshan Rawal Akasa Singh",
+            title:"kheech meri photo"
+        }]
+
+        let isPlaying=false
+        const playMusic=()=>{
+            isPlaying=true
+            music.play();
+            play.classList.replace("fa-play", "fa-pause")
+        };
+        const pauseMusic=()=>{
+            isPlaying=false
+            music.pause();
+            play.classList.replace("fa-pause","fa-play")
+        };
+
+        play.addEventListener("click",()=>{
+            if(isPlaying){
+                pauseMusic()
+            }
+            else{
+                playMusic()
+            }
+        })
+        let leadSong=(songs)=>{
+            title.textContent=songs.title
+            artist.textContent=songs.artist
+            music.src="songs/"+songs.name+".mp3"
+            image.src="images/"+songs.name+".jpg"
+        }
+        let songIndex=0
+        const nextSong=()=>{
+            songIndex=(songIndex+1)%songs.length;
+            leadSong(songs[songIndex]);
+            playMusic();
+        }
+
+        const prevSong=()=>{
+            songIndex=(songIndex-1)%songs.length;
+            leadSong(songs[songIndex]);
+            playMusic();
+        }
+
+        next.addEventListener("click", nextSong);
+        prev.addEventListener("click", prevSong);
+    </script>
+</body>
+</html>
+ 
+      
